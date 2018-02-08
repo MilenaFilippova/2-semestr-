@@ -9,21 +9,19 @@ int main()
 
 	const int N=10;
 	int A[N];
-  int max=50, min=-50,minel=0;
-  int* p = A;
+  	int max=50, min=-50,minel=0;
+  	int* p = A;
 	for (int i=0; i<N; i++) 
 	{
-		  A[i]= min+rand()%(max-min+1);
-		  cout << *p << ' ' ;
-         
-         
-         if (minel > *p)
-         {
-             minel = *p ;   
-         }
-      p++;
+		A[i]= min+rand()%(max-min+1);
+		cout << *p << ' ' ;
+         	if (minel > *p)
+         	{
+             		minel = *p ;   
+         	}
+      		p++;
 	}
 
-	cout << endl<<minel;			
-  return 0;
+ 	cout << endl<<minel;			
+ 	return 0;
 }
