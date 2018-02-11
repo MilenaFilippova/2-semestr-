@@ -1,0 +1,31 @@
+#задача 2
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+int main()
+{
+    char str[80];
+    char* p1 = str; 
+    int pr=0;       // счетчик пробелов
+    cin.get(str,80);
+    system("cls");
+    cout << str<<endl ;
+       while(*p1 != '\0') // Пока не встретили 0 в конце строки
+       {
+            if( ((short)*p1)!=32 ) //проверяем на сивол строку
+            {  
+              cout <<*p1;
+              pr=0;    //зануляем счетчик пробелов
+            }
+            else
+            {
+                if (pr==0)
+                {
+                    cout <<*p1; 
+                }
+                pr++;  //увеличиваем счетчик пробелов
+            }
+            p1++; //сдвигаем указатель
+        } 
+    return 0;
+}
