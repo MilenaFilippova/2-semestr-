@@ -1,0 +1,77 @@
+#задача 3
+#include <fstream>
+#include <stdlib.h>
+#include <cmath>
+#include <iostream>
+#include <locale.h>
+using namespace std;
+ 
+int main (void)
+{
+	char str[80];
+	int str2[10]={0,0,0,0,0,0,0,0,0,0};
+	int shet=0,a;
+	char* p = str; // Указатель для передвижения по строке
+	int* p2 = str2; // Указатель для передвижения по строке
+  
+	cout << "Vvedite strocy"<<endl;
+	cin.get(str,80);
+	system("cls");
+	cout << str<<endl ;
+	while(*p != '\0') // Пока не встретили 0 в конце строки
+	{
+	    switch (*p)  // считаем цифры и заносим их кол-во в массив
+		{
+            case '0' : 
+            (*str2)++;
+			break;
+            case '1' :
+            (*(str2+1))++;
+            break;
+            case '2' :
+            (*(str2+2))++;
+            break;
+            case '3' : 
+            (*(str2+3))++;
+            break;
+            case '4' : 
+	        (*(str2+4))++;
+	        break;
+	        case '5' : 
+            (*(str2+5))++;
+            break;
+            case '6' :
+            (*(str2+6))++;
+            break;
+            case '7' :
+            (*(str2+7))++;
+            break;
+            case '8' : 
+            (*(str2+8))++;
+            break;
+            case '9' : 
+            (*(str2+9))++;
+            break;
+	    }
+	   p++;
+    }
+	for (int i=0;i<10;i++) // ищем самое популярное число 
+	{ 
+        if ( shet < (*p2))
+		{
+			shet= *p2;
+			a=i;
+		}
+		p2++;
+	}
+	if(shet!=0) //формируем вывод
+	{
+	    cout <<"The most popular numbers : " << a << endl; //самая популярная цифра 
+	}
+	else
+	{
+	    cout << "There are no numbers in the line "; //цифры в строке совсем отсутствуют
+	}
+    system ("pause");
+    return 0;
+}
