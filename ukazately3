@@ -20,44 +20,44 @@ int main (void)
 	cout << str<<endl ;
 	while(*p != '\0') // Пока не встретили 0 в конце строки
 	{
-	    switch (*p)  // считаем цифры и заносим их кол-во в массив
+	    	switch (*p)  // считаем цифры и заносим их кол-во в массив
 		{
-            case '0' : 
-            (*str2)++;
+            		case '0' : 
+            		(*str2)++;
 			break;
-            case '1' :
-            (*(str2+1))++;
-            break;
-            case '2' :
-            (*(str2+2))++;
-            break;
-            case '3' : 
-            (*(str2+3))++;
-            break;
-            case '4' : 
-	        (*(str2+4))++;
-	        break;
-	        case '5' : 
-            (*(str2+5))++;
-            break;
-            case '6' :
-            (*(str2+6))++;
-            break;
-            case '7' :
-            (*(str2+7))++;
-            break;
-            case '8' : 
-            (*(str2+8))++;
-            break;
-            case '9' : 
-            (*(str2+9))++;
-            break;
-	    }
+            		case '1' :
+           		(*(str2+1))++;
+            		break;
+            		case '2' :
+            		(*(str2+2))++;
+            		break;
+            		case '3' : 
+            		(*(str2+3))++;
+            		break;
+            		case '4' : 
+	        	(*(str2+4))++;
+	        	break;
+	        	case '5' : 
+            		(*(str2+5))++;
+            		break;
+            		case '6' :
+            		(*(str2+6))++;
+            		break;
+            		case '7' :
+            		(*(str2+7))++;
+            		break;
+            		case '8' : 
+            		(*(str2+8))++;
+            		break;
+            		case '9' : 
+            		(*(str2+9))++;
+            		break;
+	    	}
 	   p++;
-    }
+    	}
 	for (int i=0;i<10;i++) // ищем самое популярное число 
 	{ 
-        if ( shet < (*p2))
+        	if ( shet < (*p2))
 		{
 			shet= *p2;
 			a=i;
