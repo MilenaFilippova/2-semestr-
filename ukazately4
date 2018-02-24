@@ -55,7 +55,14 @@ int main()
 		    }
 		    p2++;
      }
-     cout <<"Skobki rasstavleny verno!"<<endl;
+     if(sh1!=0)      //формируем вывод
+     {
+	    cout <<"Skobki rasstavleny verno!"<<endl;
+     }
+     else
+     {
+	    cout <<"Skobki otsutstvuyt!"<<endl;
+     }
     return 0;
     
 }
