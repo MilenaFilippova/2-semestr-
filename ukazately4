@@ -1,0 +1,61 @@
+#include <iostream>
+#include <stdlib.h>
+#include <cstring>
+using namespace std;
+int main()
+{
+    char str1[80];
+    char str2[80];
+    char* p1= str1; 
+    char* p2= str2;
+	  int   sh1=0,sh2=0;
+	  cout << "Enter string " << endl;
+    cin.get(str1,80);
+    system("cls");
+    for (int i=0;i<80;i++)    
+    {
+        if (((short)*p1)==40 || ((short)*p1)==91  || ((short)*p1)==123) // ( ,[,{ 
+	      {
+		         *p2=*p1;        //запонляем 2 массив открывающими скобками 
+		          p2++;
+		          sh1++;          //увеличиваем счетчик октрывающих скобок
+	      }
+	      else 
+	      {
+	   	        if (((short)*p1)==41 || ((short)*p1)==93  || ((short)*p1)==125)  // ),],}
+	   	        {
+	   	              sh2++;          //увеличиваем счетчик закрывающих скобок
+	   	              if (i>0)
+	   	              {
+	                      if ( ( ((short)*(p2-1))==40 && ((short)*p1)==41 ) || ( ((short)*(p2-1))==91 && ((short)*p1)==93 ) || ( ((short)*(p2-1))==123 && ((short)*p1)==125 )  ) 
+	                                    //сравниваем соответсвующие скобки 
+		                    {
+			                        p2--;           
+			                        *p2=*p1;        //на место открывающей  пишем  закрывающую
+		                    }
+	   	              }
+	   	 
+	   	              else 
+	   	              {
+	   	                  cout <<"Skobki rasstavleny neverno "<<endl;  
+	   	                  return 0;
+	   	               }
+	            }
+	      }  
+	      p1++;
+		   
+    }
+    *p2=*str2; //возвращаем указатель на начало 
+    for (int i=0;i<80;i++) //проверяем массив на наличие открывающих скобок
+    { 
+        if ((((short)*p2)==40 || ((short)*p2)==91  || ((short)*p2)==123) || (sh1!=sh2)) // ( ,[,{ 
+		    {
+			      cout <<"Skobki rasstavleny neverno"<<endl;
+			      return 0;
+		    }
+		    p2++;
+	 }
+	  cout <<"Skobki rasstavleny verno!"<<endl;
+    return 0;
+    
+}
