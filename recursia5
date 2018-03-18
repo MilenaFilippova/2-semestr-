@@ -1,0 +1,158 @@
+//5.Самый длинный связный кусок
+#include <iostream>
+#include <stdlib.h>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+void memoryloc (int **A,int row,int col);
+void read_array_from_file(char *namefile,int  **&A,int &row,int &col);
+int myrand(int min,int max);
+void rand_array(int **&A,int row,int col,int min,int max);
+void print_array(int **&A, int row,int col);
+void copy_array(int **&A,int rowa,int cola,int **B,int rowb,int colb,int drow,int dcol);
+int big_one(int **&B,int row,int col);
+int NumberOne(int **B,int i,int j);
+void write_in_file(char *namefile1,int num_one);
+
+
+
+int main()
+{
+	char namefile[]="C:\Программирование\практика\2 семестр\input.txt" ;
+	char namefile1[]="C:\Программирование\практика\2 семестр\output.txt" ;
+	int row=5,col=5; //кол-во строк,столбцов
+	int min=0; //нижзняя граница
+	int max=1; //верхняя граница
+	int **A=NULL;
+	int **B=NULL;
+	
+	
+	
+	memoryloc(A,row,col);												          //выделяем память под массив A
+	read_array_from_file(namefile,A,row,col);							//читаем данные из файла
+	print_array(A,row,col);												        //выводим массив А на экран 
+	memoryloc(B,row+2,col+2);											        //выделяем память под массив B
+	rand_array(B,row+2,col+2,0,0);										    //заполняем массив B нулями
+	copy_array(A,row,col,B,row+2,col+2,1,1); 							//переносим массив А в В
+	print_array(B,row+2,col+2);											      //выводим массив B на экран
+	int num_one=big_one(B,row+2,col+2);									  //считаем единицы в цепочке
+	cout <<num_one<<endl;												          //выводим ответ (кл-во единиц)
+	write_in_file(namefile1,num_one);									    //записываем ответ в новый файл
+	
+    return 0;
+    
+}
+
+
+void memoryloc (int **A,int row,int col) //выделяет место
+{
+	A = new int*[row];
+	for(int i=0;i<row;i++)
+		A[i] = new int[col];
+}
+
+void read_array_from_file(char *namefile,int  **&A,int &row,int &col)	//читает из файла
+{
+	ifstream in(namefile);
+	in>>row;
+	in>>col;
+	for(int i=0;i<row;++i)
+ 	{
+			for (int j=0;j<col;j++)
+			{
+				in>>A[i][j];
+				
+			}
+	}
+	in.close();
+}
+
+
+void print_array(int **&A, int row,int col)		//выводит на экран массив 
+{
+	for (int i=0;i<row;i++)
+	{
+		for(int j=0;j<col;j++)
+		{
+			cout<<A[i][j]<<'\t';
+		}
+		cout<<endl;
+	}
+}
+
+int myrand(int min,int max)			//рандом
+{
+	return min+rand()%(min,max);
+}
+
+void rand_array(int **&A,int row,int col,int min,int max) //заполнение массива рандомом
+{
+	for (int i=0;i<row;i++)
+	{
+		for(int j=0;j<col;j++)
+		{
+			A[i][j]=myrand(min,max);
+		}
+	}
+}
+
+
+void copy_array(int **&A,int rowa,int cola,int **&B,int rowb,int colb,int drow,int dcol ) //заносит массив А в массив В
+{
+
+	for (int row=0;row<rowa;row++)
+	{
+		for(int col=0;col<cola;col++)
+		{
+			if(drow+row<rowb && dcol+col<colb &&  drow+row>=0 && dcol+col>=0)
+			{
+			    B[drow+row][dcol+col]=A[row][col];
+			}
+
+
+		}
+	}
+}
+
+
+
+int big_one(int **&B,int row,int col)	
+{
+	int max=0;
+	int num;
+	for (int i=1;i<row;i++)
+	{
+		for (int j=1;j<col;j++)
+		{
+			num=NumberOne(B,i,j);
+			if(num>max)
+            {
+                max=num;
+            }
+		}	
+	}
+    return max;        
+
+}
+
+int NumberOne(int **B,int i,int j) //считает единицы
+{
+	if(B[i][j]==0)
+    {
+        return 0;
+    }
+    else 
+    {
+        B[i][j]=0;
+       return 1+NumberOne(B,i-1,j)+NumberOne(B,i+1,j)+NumberOne(B,i,j-1)+NumberOne(B,i,j+1);
+    }
+	
+}
+
+void write_in_file(char *namefile1,int num_one)	//записывает  в файл
+{
+	ofstream in(namefile1);
+	out>>num_one;
+	out.close();
+}
