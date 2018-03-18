@@ -49,7 +49,7 @@ void memoryloc (int **&A,int row,int col) //выделяет место
 {
 	A = new int*[row];
 	for(int i=0;i<row;i++)
-		A[i] = new int[col];
+	A[i] = new int[col];
 }
 
 void read_array_from_file(char *namefile,int  **&A,int &row,int &col)	//читает из файла
@@ -127,25 +127,25 @@ int big_one(int **&B,int row,int col)
 		{
 			num=NumberOne(B,i,j);
 			if(num>max)
-            {
-                max=num;
-            }
+                	{
+                		max=num;
+              		}
 		}	
 	}
-    return max;        
+        return max;        
 
 }
 
 int NumberOne(int **&B,int i,int j) //считает единицы
 {
-	if(B[i][j]==0)
+    if(B[i][j]==0)
     {
         return 0;
     }
     else 
     {
         B[i][j]=0;
-       return 1+NumberOne(B,i-1,j)+NumberOne(B,i+1,j)+NumberOne(B,i,j-1)+NumberOne(B,i,j+1);
+        return 1+NumberOne(B,i-1,j)+NumberOne(B,i+1,j)+NumberOne(B,i,j-1)+NumberOne(B,i,j+1);
     }
 	
 }
