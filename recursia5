@@ -5,14 +5,14 @@
 #include <fstream>
 using namespace std;
 
-void memoryloc (int **A,int row,int col);
+void memoryloc (int **&A,int row,int col);
 void read_array_from_file(char *namefile,int  **&A,int &row,int &col);
 int myrand(int min,int max);
 void rand_array(int **&A,int row,int col,int min,int max);
 void print_array(int **&A, int row,int col);
 void copy_array(int **&A,int rowa,int cola,int **B,int rowb,int colb,int drow,int dcol);
 int big_one(int **&B,int row,int col);
-int NumberOne(int **B,int i,int j);
+int NumberOne(int **&B,int i,int j);
 void write_in_file(char *namefile1,int num_one);
 
 
@@ -45,7 +45,7 @@ int main()
 }
 
 
-void memoryloc (int **A,int row,int col) //выделяет место
+void memoryloc (int **&A,int row,int col) //выделяет место
 {
 	A = new int*[row];
 	for(int i=0;i<row;i++)
@@ -136,7 +136,7 @@ int big_one(int **&B,int row,int col)
 
 }
 
-int NumberOne(int **B,int i,int j) //считает единицы
+int NumberOne(int **&B,int i,int j) //считает единицы
 {
 	if(B[i][j]==0)
     {
