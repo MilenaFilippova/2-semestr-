@@ -1,4 +1,4 @@
-1.	Факториал.
+//1.	Факториал.
 #include <iostream>
 #include <stdlib.h>
 #include <cstring>
