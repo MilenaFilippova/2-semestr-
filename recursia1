@@ -1,0 +1,28 @@
+1.	Факториал.
+#include <iostream>
+#include <stdlib.h>
+#include <cstring>
+using namespace std;
+
+long long factorial (int n)
+{
+    if (n==0)
+        return 1;
+    else 
+        return n*factorial (n-1);
+}   
+int main()
+{
+    setlocale (LC_ALL,"Russian");
+    int n;
+    cout<<"Введите число больше нуля: "<<endl;       
+    cin >> n;
+    if (n<0)
+    {
+        cout<<"Введите число больше нуля";
+    }
+    else
+    {
+        cout<<"Факториал от "<< n <<"="<<factorial (n);
+    }
+}
