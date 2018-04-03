@@ -1,0 +1,29 @@
+//6.Ханойские башни
+#include <iostream>
+using namespace std;
+int k=0; //глобальная  переменная -количесво перекладываний
+
+void perekladivanie( int n,int start,int stop,int between )	//сколько, c какой ,на какую , промежуточная
+{
+    
+	  if (n!=0)		    //проверяем есть ли кольца
+	  {
+	       k++;       //счетчик перекладываний
+			   perekladivanie(n-1, start, between, stop);                     //1 чать алгоритма перекладывания
+			   setlocale(LC_ALL,"Russian");
+			   cout<<"Переносим"<<n<<" диск с "<<start<<" стержня на "<<stop<<" стержень"<<endl; 
+		     perekladivanie(n-1, between, stop, start);                    //2 чать алгоритма перекладывания
+	  }
+
+}
+
+int main()
+{
+	
+	  //обозначим A-1й стержень, B-2ой стержень, C-3й стержень
+    perekladivanie(4, 1 , 2, 3  );		        //сколько, c какой ,на какую , промежуточная
+	  cout<<endl<<"Всего перекладываний : "<<k<<endl;
+	  system("pause");
+    return 0;
+    
+}
