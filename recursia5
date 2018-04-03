@@ -153,6 +153,6 @@ int NumberOne(int **&B,int i,int j) //считает единицы
 void write_in_file(char *namefile1,int num_one)	//записывает  в файл
 {
 	ofstream in(namefile1);
-	out>>num_one;
+	out<<num_one;
 	out.close();
 }
