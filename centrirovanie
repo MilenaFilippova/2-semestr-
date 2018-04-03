@@ -1,0 +1,69 @@
+#include <iostream>
+#include <fstream>
+#include <locale.h>
+#include <string.h>
+
+using namespace std;
+const int STR_LENGTH = 80; //массив,в который перепишем строки
+
+bool readLine(ifstream& in, char* buffer);
+void centerLine(char* buffer);
+
+int main(void)
+{
+	  setlocale(LC_ALL,"Russian");
+	  in.open("F:\\in.txt");
+	  ifstream in("F:\\in.txt");
+	  if (!in.is_open())    //проверяем ,существует ли файл по указанному адресу
+	  { 
+		  cout<<"Файл in.txt не существует"<<endl;
+			  return -1;
+	  }
+	  in.close();
+
+	  out.open("F:\\out.txt");
+	  ofstream out("F:\\out.txt");
+
+    if (!out.is_open())
+	  {
+		    cout<<"Невозможно создать выходной файл out.txt"<<endl;
+			    return -2;
+	  }	
+    
+	  char buffer[STR_LENGTH+1];
+	  while (readLine(in, buffer))
+	  {
+		    centerLine(buffer);   //вызываем функцию центрирования
+		    cout<<buffer<<endl;
+		    out<<buffer<<endl;
+	  }
+	  out.close();
+    
+	  system("pause");
+	  return 0;
+}
+
+bool readLine(ifstream& in, char* buffer)    //функция проверяет можно ли его прочитать  
+{
+	  buffer[0] = 0;							             // Для последующей проверки
+	  in.getline(buffer, STR_LENGTH+1, '\n');
+	  if (in.fail())
+	  {
+		    if (buffer[0]>0)
+		    cout<<"Слишком длинная строка во входном файле"<<endl;
+		    return false;
+	  }
+	  return true;
+}
+	
+void centerLine(char* buffer)			        //функция центрирования срок
+{ 
+	  int len=strlen(buffer);			          // вычисляем длину строки 
+	  int shift = (STR_LENGTH-len)/2;		    //находим кол-во нужных пробелов
+	  if (shift==0)						              //проверка на то ,что в строке есть место для центрирования (символы не занимают весь STR_LENGTH)	
+	  return;								                //нечего центрировать 
+	  for (int i=len; i>=0; i--)			      // Сдвинуть len символов + нуль-символ
+	  buffer[i+shift]=buffer[i];
+	  for (int i=0; i<shift; i++)
+	  buffer[i]=' ';						             //заполням отступ пробелами
+}
