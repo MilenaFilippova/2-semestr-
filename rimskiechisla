@@ -1,0 +1,202 @@
+//Напишите функции, переводящие римские числа в арабские и наоборот, в диапазоне от 1 до 3999.
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+int check_corect(int arab);
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+int check_corect(int arab);
+int divide(int x,int del);
+int convert(int x);
+int RIM_one(int y);
+int RIM_ten(int z);
+int RIM_hundreds(int n);
+int RIM_thousands(int m);
+
+
+
+int main(void)
+{
+	setlocale(LC_ALL, "Russian");
+
+	int arab;
+	cout<<"Введите число, которое хотите перевести (от 1 до 3999)"<<endl;
+	cin>>arab;
+	cout<<endl;
+	check_corect(arab);	//проверяем  коректно ли число 
+	convert(arab);		  //переводим число
+	cout<<endl;
+	
+	system("pause");
+  return 0 ;
+}
+
+int check_corect(int arab)		//проверяем  коректно ли число 
+{
+	if (arab<1 || arab>3999)
+	{
+	    cout<< "Данные введены некоректно. Введите число от 1 до 3999."<<endl;
+	}
+	return 0;
+}
+
+int divide(int x,int del)	//выделяем остаток от деления
+{
+    return x%del;
+}
+
+
+int convert(int x)      //первод чисел ,последовательно рубим число
+{
+	if(x/1000>0)
+	{
+		RIM_thousands((x/1000)*1000);
+		x=divide(x,1000);
+	}
+	if(x/100>0)   
+	{
+		RIM_hundreds((x/100)*100);
+		x=divide(x,100);
+	}
+	if(x/10>0)
+	{
+		RIM_ten((x/10)*10);
+		x=divide(x,10);
+	}
+	if(x%10>0)
+	{
+		RIM_one(x%10);
+	}      
+	
+	return 0;
+}
+
+
+int RIM_one(int y)		//перевод единиц
+{
+	switch (y)
+	{	
+	    
+		case 1:
+		cout<<"I";
+		break;
+		case 2:
+		cout<<"II";
+		break;
+		case 3:
+		cout<<"III";
+		break;
+		case 4:
+		cout<<"IV";
+		break;
+		case 5:
+		cout<<"V";
+		break;
+		case 6:
+		cout<<"VI";
+		break;
+		case 7:
+		cout<<"VII";
+		break;
+		case 8:
+		cout<<"VIII";
+		break;
+		case 9:
+		cout<<"IX";
+		break;
+	}
+	return 0;
+}
+
+int RIM_ten(int z)		//перевод десятков
+{
+	switch (z)
+	{
+		case 10:
+		cout<<"X";
+		break;
+		case 20:
+		cout<<"XX";
+		break;
+		case 30:
+		cout<<"XXX";
+		break;
+		case 40:
+		cout<<"XL";
+		break;
+		case 50:
+		cout<<"L";
+		break;
+		case 60:
+		cout<<"LX";
+		break;
+		case 70:
+		cout<<"LXX";
+		break;
+		case 80:
+		cout<<"LXXX";
+		break;
+		case 90:
+		cout<<"XC";
+		break;
+	}
+	return 0;
+}
+
+int RIM_hundreds(int n)			//перевод сотен
+{
+	switch (n)
+	{
+		case 100:
+		cout<<"C";
+		break;
+		case 200:
+		cout<<"СС";
+		break;
+		case 300:
+		cout<<"CCC";
+		break;
+		case 400:
+		cout<<"CD";
+		break;
+		case 500:
+		cout<<"D";
+		break;
+		case 600:
+		cout<<"DC";
+		break;
+		case 700:
+		cout<<"DCC";
+		break;
+		case 800:
+		cout<<"DCCC";
+		break;
+		case 900:
+		cout<<"CM";
+		break;
+	}
+	return 0;
+}
+
+
+int RIM_thousands(int m)			//перевод тысяч
+{
+	switch (m)
+	{
+		case 1000:
+		cout<<"M";
+		break;
+		case 2000:
+		cout<<"MM";
+		break;
+		case 3000:
+		cout<<"MMM";
+		break;
+	}
+	return 0;
+}
