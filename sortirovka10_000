@@ -1,0 +1,92 @@
+#include <iostream>
+#include <ctime>
+#include <fstream>
+#include <math.h>
+
+
+using namespace std;
+
+int qsort (int *A,int b, int e,int &k);
+void myrand(int *A,int N,int min,int max);
+
+int main(void)
+{
+    setlocale(LC_ALL, "Russian");
+    int k=0;
+	  int N=100;
+	  int E=100, B=10000, step=100, min=0,max=N, kolvo=100;
+	  double R=N;
+	  int *A;
+	  A=new int[N];
+    
+    ofstream out;
+	  out.open("D:\\output.txt");
+	  cout<<"N"<<'\t'<<'\t';
+	  out<<"N"<<'\t'<<'\t';
+
+	  N=E;
+	  for(int k=1;k<=kolvo;k++)
+	  {
+		  cout<<"P"<<k<<'\t';
+		  out<<"P"<<k<<'\t';
+	  }
+	  cout<<"result"<<endl;;
+	  out<<"result"<<endl;;
+	  for (int j=E;j<=B;j+=step)
+	  {
+		   N=E;
+		   cout << "N =" <<j<<'\t'<<'\t';
+		   out<<"N =" <<j<<'\t'<<'\t';
+		   for (int i=1;i<=kolvo;i++)
+		   {
+			    myrand(A,N,min, max);
+			    k=qsort (A, 0 , N-1,k);
+			    cout <<k<<'\t';
+			    out<<k<<'\t';		
+		   }
+		   cout<<((double)R )*log((double) R)/log(2.0)<<endl;
+		   out<<((double)R )*log((double) R)/log(2.0)<<endl;
+	  }
+	  out.close();
+
+	  system("pause");
+	  return 0 ;
+}
+
+void myrand(int *A,int N,int min,int max)
+{
+   for(int i=0; i<N; i++)
+	 {
+	    A[i] = max+rand()%(max-min+1);
+	 }
+}
+
+
+int  qsort (int *A,int b, int e,int &k)
+{
+    if (b>=e)
+    {
+        return 0;
+    }
+	  int l = b, r = e;
+	  k = 0;
+	  int piv = A[(l + r)/ 2]; // Опорным элементом для примера возьмём средний
+	  while (l <= r)
+	  {
+		   while (A[l] < piv)
+		   l++;
+		   k++;
+		   while (A[r] > piv)
+		   r--;
+		   k++;
+		   if (l <= r)
+		   swap (A[l++], A[r--]);
+		   k++;
+	  }
+	  if (b < r)
+	  {
+		   return k + qsort (A,b, r,k) + qsort (A,l, e,k);
+	  }
+	  return 0;
+}
+
