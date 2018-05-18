@@ -1,0 +1,138 @@
+#include "rim.h"
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+
+using namespace std;
+
+int proverkarab(int arab)		//проверяем  коректно ли число 
+{
+	int endfunk=0;
+	if (arab<1 || arab>3999)
+	{
+	   cout<< "Данные введены некоректно. Введите число от 1 до 3999."<<endl;
+		 endfunk=-1;
+	}
+	return endfunk;
+}
+
+
+char* arab_rim(int arab,char *rimsk,int chislo,int size)	//переводим число
+{
+	char* rim=new char[200];
+	const int unit_rim =7;
+
+	Number rimsarr[unit_rim];
+	rimsarr[0].r = 'I'; 	rimsarr[0].a = 1;
+	rimsarr[1].r = 'V'; 	rimsarr[1].a = 5;
+	rimsarr[2].r = 'X'; 	rimsarr[2].a = 10;
+	rimsarr[3].r = 'L';		rimsarr[3].a = 50;
+	rimsarr[4].r = 'C'; 	rimsarr[4].a = 100;
+	rimsarr[5].r = 'D'; 	rimsarr[5].a = 500; 
+	rimsarr[6].r = 'M'; 	rimsarr[6].a = 1000;
+
+	int k=unit_rim-1;
+	if(chislo==1)	//перевод из арабского в римское
+	{
+		int n=0, i=0, j=0;
+		while (arab>0)
+		{
+			if (arab >= rimsarr[k].a)
+			{
+				n = arab / rimsarr[k].a;
+				if(n>3)
+				{
+					for (i=0; i<n-3; i++)
+					{
+						rim[j+i] = rimsarr[k].r;
+					}
+					rim[j+i] = rimsarr[k+1].r;
+					j = j + i + 1;
+				}
+
+				else
+				{
+					for (i=0; i<n; i++)
+					{
+						if((arab-rimsarr[k].a==4 && rimsarr[k].a!=10) || (arab-rimsarr[k].a>=40  && arab-rimsarr[k].a<50)  || (arab-rimsarr[k].a>=400 &&  arab-rimsarr[k].a<500 )  )
+						{ 
+							rim[j+i] = rimsarr[k-1].r;	
+							j++;
+							rim[j+i] = rimsarr[k+1].r;
+							arab =arab  - (arab / rimsarr[k-1].a )* rimsarr[k-1].a;
+							i++;
+						}
+						else
+						{
+							rim[j+i] = rimsarr[k].r;
+						}
+					}
+			        j = j + n;
+				}
+				arab=arab % rimsarr[k].a;
+			}
+			k--;
+		
+		}
+		rim[j] = 0;
+		return rim;
+	}
+
+
+	else	//перевод из римского в арабское
+	{
+		int newarab=0,m=0,tmp=0;	//sum итоговое арабское число,tmp - переменная для временных значений
+		char* arstr=new char[100];
+		for (m=0;m<size;m++)
+		{
+			for(k=unit_rim-1;k>=0;k--)		//цикл по таблице
+			{
+				if(rimsk[m]==rimsarr[k].r)	//если введенное значение равно табличному
+				 //переводим римское 
+				{
+					  if(rimsarr[k].a<tmp)
+					  {
+						  newarab+=tmp;
+						  tmp=rimsarr[k].a;
+					  }
+					  else if (rimsarr[k].a>tmp)
+					  {
+						    if(tmp==0)
+						    {
+							    tmp=rimsarr[k].a;
+						    }
+						    else
+						    {
+							     newarab+=rimsarr[k].a-tmp;
+							     tmp=0;
+						    }
+					  }
+					  else if(rimsarr[k].a==tmp)
+					  {
+						    newarab+=tmp+rimsarr[k].a;
+						    tmp=0;
+					  }
+				}
+			
+			}
+
+		}
+		cout<<endl;
+		newarab+=tmp;
+		itoa(newarab, arstr, 10);		//преобразуем полученное число в строку
+		return arstr;
+	}
+}
+
+int proverkarim(char *rimsk,int size)
+{
+	int endfunk=0;
+	for (int m=0;m<size;m++) 
+	{
+		  if(rimsk[m]==rimsk[m+1] && rimsk[m]==rimsk[m+2] && rimsk[m]==rimsk[m+3])
+		  {
+			  endfunk=-1;	
+		  }
+	}
+	return endfunk;
+}
