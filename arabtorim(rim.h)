@@ -1,0 +1,14 @@
+#ifndef _RIM_H
+#define _RIM_H
+
+char* arab_rim(int arab,char *rimsk,int chislo,int size);
+int proverkarab(int arab);
+int proverkarim(char *rimsk,int size);
+
+struct Number
+{
+    char r ;
+	  int a ;
+};
+
+#endif
