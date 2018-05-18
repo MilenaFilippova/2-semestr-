@@ -67,7 +67,7 @@ char* arab_rim(int arab,char *rimsk,int chislo,int size)	//переводим ч
 							rim[j+i] = rimsarr[k].r;
 						}
 					}
-			        j = j + n;
+			        	j = j + n;
 				}
 				arab=arab % rimsarr[k].a;
 			}
