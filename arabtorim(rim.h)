@@ -8,7 +8,7 @@ int proverkarim(char *rimsk,int size);
 struct Number
 {
     char r ;
-	  int a ;
+    int a ;
 };
 
 #endif
