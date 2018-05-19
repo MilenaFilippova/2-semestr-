@@ -3,23 +3,23 @@
 #include <fstream>
 #include <math.h>
 
-
 using namespace std;
 
 int qsort (int *A,int b, int e,int &k);
 void myrand(int *A,int N,int min,int max);
+void mamory_del(int *A,int N);
 
 int main(void)
 {
-    	  setlocale(LC_ALL, "Russian");
-   	  int k=0;
+      	  setlocale(LC_ALL, "Russian");
+	  int k=0;
 	  int N=100;
 	  int E=100, B=10000, step=100, min=0,max=N, kolvo=100;
 	  double R=N;
 	  int *A;
 	  A=new int[N];
-    
-    	  ofstream out;
+
+          ofstream out;
 	  out.open("D:\\output.txt");
 	  cout<<"N"<<'\t'<<'\t';
 	  out<<"N"<<'\t'<<'\t';
@@ -47,46 +47,59 @@ int main(void)
 		   cout<<((double)R )*log((double) R)/log(2.0)<<endl;
 		   out<<((double)R )*log((double) R)/log(2.0)<<endl;
 	  }
+	  mamory_del(A,N);
 	  out.close();
-
+	  
 	  system("pause");
 	  return 0 ;
 }
 
 void myrand(int *A,int N,int min,int max)
 {
-   for(int i=0; i<N; i++)
-	 {
+     for(int i=0; i<N; i++)
+     {
 	    A[i] = max+rand()%(max-min+1);
-	 }
+     }
 }
 
 
 int  qsort (int *A,int b, int e,int &k)
 {
-    if (b>=e)
-    {
-        return 0;
-    }
+      if (b>=e)
+      {
+         return 0;
+      }
+
 	  int l = b, r = e;
 	  k = 0;
 	  int piv = A[(l + r)/ 2]; // Опорным элементом для примера возьмём средний
 	  while (l <= r)
 	  {
 		   while (A[l] < piv)
-		   l++;
-		   k++;
+		   {
+			l++;
+			k++;
+		   }
 		   while (A[r] > piv)
-		   r--;
-		   k++;
+		   {
+			   r--;
+			   k++;
+		   }
 		   if (l <= r)
-		   swap (A[l++], A[r--]);
-		   k++;
+		   {
+			swap (A[l++], A[r--]);
+			k++;
+		   }
 	  }
 	  if (b < r)
 	  {
 		   return k + qsort (A,b, r,k) + qsort (A,l, e,k);
 	  }
 	  return 0;
+}
+void mamory_del(int *A,int N)
+{
+	for (int count = 0; count<N; count++)
+        delete [] A; // высвобождение памяти
 }
 
