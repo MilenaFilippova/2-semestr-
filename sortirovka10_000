@@ -58,7 +58,7 @@ void myrand(int *A,int N,int min,int max)
 {
      for(int i=0; i<N; i++)
      {
-	    A[i] = max+rand()%(max-min+1);
+	    A[i] = min+rand()%(max-min+1);
      }
 }
 
