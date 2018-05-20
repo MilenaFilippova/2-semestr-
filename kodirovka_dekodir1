@@ -1,0 +1,84 @@
+//Напишите программу, которая кодирует и декодирует сообщение из файла. 
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+
+
+void encode(char *input, char *output, char key);   //функция шифрования
+void decode(char *input, char *output, char key);   //функция расшифровки
+
+
+using namespace std;
+
+int main(void)
+{
+	setlocale(LC_ALL,"Russian");
+	char namefile[1000]=("D:\\inshifr.txt"); //файл с данными 
+	char namefile1[1000]=("D:\\outshifr.txt"); //файл для записи данных
+	char namefile2[1000]=("D:\\uncodeshifr.txt"); //файл для записи данных
+	char key;//сдвиг
+	int otvet;
+	encode(namefile, namefile1,key);		//функция шифрования
+	cout<<"Зашифрованный текст готов,если хотите расшифровать в uncodeshifr.txt - нажмите 1"<<endl;
+	cin>>otvet;
+	if (otvet==1)
+	{
+		decode(namefile1, namefile2, key);	//функция расшифровки
+		cout<<"Расшифрованный текст готов"<<endl;
+	}
+		system("pause");
+	return 0;
+}
+
+void encode( char *input, char *output, char key)
+{
+	char ch;
+	ifstream in(input);
+	ofstream out(output);
+	key = tolower(key);
+	key ='a';//сдвиг
+	do
+	{
+		ch=in.get();
+		ch=tolower(ch);	//преобразование прописных букв в строчные
+		if(isalpha(ch))	//проверка,что это буквы от a до z
+		{
+			ch+=key;
+			if(ch>'z')
+			{
+				ch-=26;
+			}
+		}
+		out.put(ch);
+	}
+	while(!in.eof());
+
+	in.close();
+	out.close();
+}
+
+void decode(char *input, char *output, char key)
+{
+	char ch;
+	ifstream in(input);
+	ofstream out (output);
+	key='a';		//сдвиг
+	do
+	{
+		ch=in.get();
+		if(isalpha(ch))
+		{	
+			ch-=key;
+			if(ch<'a')
+			{
+				ch+=26;
+			}
+		}
+		out.put(ch);
+	}
+	while(!in.eof());
+
+	in.close();
+	out.close();
+
+}
