@@ -45,7 +45,7 @@ void encode( char *input, char *output)
 		out.put(ch);
 	}
 	while(!in.eof());
-
+	
 	in.close();
 	out.close();
 }
@@ -63,7 +63,6 @@ void decode( char *input, char *output)
 		{
 			ch=~ch;
 		}
-		
 		out.put(ch);
 	}
 	while(!in.eof());
