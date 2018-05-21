@@ -30,7 +30,7 @@ int main(void)
 
 void encode( char *input, char *output)
 {
-	char ch;
+	int ch;
 
 	ifstream in(input,ios::in | ios::binary);
 	ofstream out(output,ios::out | ios::binary);
@@ -53,13 +53,13 @@ void encode( char *input, char *output)
 
 void decode( char *input, char *output)
 {
-	char ch;
+	int ch;
 	ifstream in(input, ios::in | ios::binary);
 	ofstream out(output, ios::out | ios::binary);
 	do
 	{
 		ch=in.get();
-		if((int(ch))!=32)
+		if(ch!=32)
 		{
 			ch=~ch;
 		}
