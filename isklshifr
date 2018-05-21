@@ -1,0 +1,99 @@
+//Напишите программу, которая кодирует и декодирует сообщение из файла c помощью ^. 
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+
+void encode( char *input, char *output,char key);  //функция шифрования
+void decode( char *input, char *output,char key);   //функция расшифровки
+
+using namespace std;
+
+void main(int argc, char *argv[])
+{
+	setlocale(LC_ALL,"Russian");
+	//char namefile[1000]=("D:\\inshifr.txt"); //файл с данными 
+	//char namefile1[1000]=("D:\\outiskl.txt"); //файл для записи данных
+	//char namefile2[1000]=("D:\\uncodeiskl.txt"); //файл для записи данных
+	//int otvet;
+	if(argc!=5)
+	{
+		cout<<"известны не все данные"<<endl;
+		exit(1);
+	}
+
+	if(toupper(*argv[3]=='E'))
+		encode(argv[1], argv[2], *argv[4]);		//функция шифрования
+	else
+		decode(argv[1], argv[2], *argv[4]);		//функция расшифровки
+	cout<<"Зашифрованный текст готов"<<endl;
+		system("pause");
+	return 0;
+}
+
+
+
+
+void encode( char *input, char *output,char key)
+{
+	int ch;
+	ifstream in(input, ios::in | ios::binary);
+	ofstream out(output, ios::out | ios::binary);
+	if(!in)
+	{
+		cout<<"Файл для чтения не может быть открыт"<<endl;
+		exit(1);
+	}
+	if(!out)
+	{
+		cout<<"Файл для записи не может быть открыт"<<endl;
+		exit(1);
+	}
+	
+	do
+	{
+		ch=in.get();
+		ch=ch^key;
+		if(!in.eof())
+		{
+			out.put((char)ch);
+		}
+	}
+	while(!in.eof());
+
+	in.close();
+	out.close();
+}
+
+
+
+void decode( char *input, char *output,char key)
+{
+	int ch;
+	ifstream in(input, ios::in | ios::binary);
+	ofstream out(output, ios::out | ios::binary);
+	if(!in)
+	{
+		cout<<"Файл для чтения не может быть открыт"<<endl;
+		exit(1);
+	}
+	if(!out)
+	{
+		cout<<"Файл для записи не может быть открыт"<<endl;
+		exit(1);
+	}
+	
+	do
+	{
+		ch=in.get();
+		ch=ch^key;
+		if(!in.eof())
+		{
+			out.put((char)ch);
+		}
+	}
+	while(!in.eof());
+
+	in.close();
+	out.close();
+}
+
