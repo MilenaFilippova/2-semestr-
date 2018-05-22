@@ -1,0 +1,101 @@
+//Напишите программу, которая кодирует и декодирует сообщение из файла c помощью исключающего или ^ (с парамтрами). 
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+
+int encode (char *input, char *output,char *key); //функция шифрования
+int decode (char *input, char *output,char *key);   //функция расшифровки
+
+using namespace std;
+
+void main(int argc,char *argv[])
+{
+	setlocale(LC_ALL,"Russian");
+	if(argc!=4)
+	{
+		cout<<"известны не все данные"<<endl;
+		exit(1);
+	}
+
+		encode(argv[1],argv[2],argv[3]);		//функция шифрования
+		decode(argv[1],argv[2],argv[3]);		//функция расшифровки
+		cout<<"Зашифрованный текст готов"<<endl;
+		system("pause");
+	exit(1);
+}
+
+
+
+
+int encode (char *input, char *output,char *key)
+{
+	int k=0;
+	int sizekey=strlen(key);
+	int ch;
+	ifstream in(input, ios::in | ios::binary);
+	ofstream out(output, ios::out | ios::binary);
+	if(!in)
+	{
+		cout<<"Файл для чтения не может быть открыт"<<endl;
+		return 0;
+	}
+	if(!out)
+	{
+		cout<<"Файл для записи не может быть открыт"<<endl;
+		return 0;
+	}
+	
+	do
+	{
+			ch=in.get();
+			k=k%sizekey;
+			ch=ch^key[k];
+			k++;
+			if(!in.eof())
+		{
+			out.put((char)ch);
+		}
+	}
+	while(!in.eof());
+
+	in.close();
+	out.close();
+}
+
+
+
+int decode( char *input, char *output,char *key)
+{
+	int k=0;
+	int sizekey=strlen(key);
+	int ch;
+	ifstream in(input, ios::in | ios::binary);
+	ofstream out(output, ios::out | ios::binary);
+	if(!in)
+	{
+		cout<<"Файл для чтения не может быть открыт"<<endl;
+		return 0;
+	}
+	if(!out)
+	{
+		cout<<"Файл для записи не может быть открыт"<<endl;
+		return 0;
+	}
+	
+	do
+	{
+			ch=in.get();
+			k=k%sizekey;
+			ch=ch^key[k];
+			k++;
+			if(!in.eof())
+			{
+				out.put((char)ch);
+			}
+	}
+	while(!in.eof());
+
+	in.close();
+	out.close();
+}
+
