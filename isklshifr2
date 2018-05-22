@@ -23,9 +23,6 @@ void main(int argc,char *argv[])
 	exit(1);
 }
 
-
-
-
 int encode (char *input, char *output,char *key)
 {
 	int k=0;
