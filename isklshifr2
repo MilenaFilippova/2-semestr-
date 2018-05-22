@@ -16,11 +16,10 @@ void main(int argc,char *argv[])
 		cout<<"известны не все данные"<<endl;
 		exit(1);
 	}
-
-		encode(argv[1],argv[2],argv[3]);		//функция шифрования
-		decode(argv[1],argv[2],argv[3]);		//функция расшифровки
-		cout<<"Зашифрованный текст готов"<<endl;
-		system("pause");
+	encode(argv[1],argv[2],argv[3]);		//функция шифрования
+	decode(argv[1],argv[2],argv[3]);		//функция расшифровки
+	cout<<"Зашифрованный текст готов"<<endl;
+	system("pause");
 	exit(1);
 }
 
@@ -44,14 +43,13 @@ int encode (char *input, char *output,char *key)
 		cout<<"Файл для записи не может быть открыт"<<endl;
 		return 0;
 	}
-	
 	do
 	{
-			ch=in.get();
-			k=k%sizekey;
-			ch=ch^key[k];
-			k++;
-			if(!in.eof())
+		ch=in.get();
+		k=k%sizekey;
+		ch=ch^key[k];
+		k++;
+		if(!in.eof())
 		{
 			out.put((char)ch);
 		}
@@ -84,14 +82,14 @@ int decode( char *input, char *output,char *key)
 	
 	do
 	{
-			ch=in.get();
-			k=k%sizekey;
-			ch=ch^key[k];
-			k++;
-			if(!in.eof())
-			{
-				out.put((char)ch);
-			}
+		ch=in.get();
+		k=k%sizekey;
+		ch=ch^key[k];
+		k++;
+		if(!in.eof())
+		{
+			out.put((char)ch);
+		}
 	}
 	while(!in.eof());
 
