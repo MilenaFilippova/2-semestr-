@@ -1,0 +1,80 @@
+//Напишите программу, которая кодирует и декодирует сообщение из файла c помощью инверсии ~ (с парамтрами). 
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+
+void encode(char *input, char *output);   //функция шифрования
+void decode(char *input, char *output);   //функция расшифровки
+
+using namespace std;
+
+void main(int argc,char *argv[])
+{
+	int otvet;
+	setlocale(LC_ALL,"Russian");
+	if(argc!=3)
+	{
+		cout<<"Известны не все данные"<<endl;
+		exit(1);
+	}
+	cout<<"Если хотитете раскодировать нажмите 1,если раскодировать 2"<<endl;
+	cin>>otvet;
+
+	if(otvet==1)
+	{
+		encode(argv[1],argv[2]);		//функция шифрования
+		cout<<"Зашифрованный текст готов"<<endl;		
+	}
+	else if(otvet==2)
+	{
+		decode(argv[1],argv[2]); 	//функция расшифровки
+		cout<<"Расшифрованный текст готов"<<endl;		
+	}
+		system("pause");
+	exit(1);
+}
+
+
+void encode( char *input, char *output)
+{
+	int ch;
+
+	ifstream in(input,ios::in | ios::binary);
+	ofstream out(output,ios::out | ios::binary);
+	do
+	{
+		ch=in.get();
+		if(isalpha(ch))	//проверка,что это буквы от a до z
+		{	
+			ch=~ch;
+		}
+		
+		out.put(ch);
+	}
+	while(!in.eof());
+
+	in.close();
+	out.close();
+}
+
+
+void decode( char *input, char *output)
+{
+	int ch;
+	ifstream in(input, ios::in | ios::binary);
+	ofstream out(output, ios::out | ios::binary);
+	do
+	{
+		ch=in.get();
+		if(ch!=32)
+		{
+			ch=~ch;
+		}
+		
+		out.put(ch);
+	}
+	while(!in.eof());
+
+	in.close();
+	out.close();
+}
