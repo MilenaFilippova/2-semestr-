@@ -7,7 +7,6 @@ void press(char *input, char *output);   //функция сжатия
 void unpress(char *input, char *output);   //функция восстановления размера
 using namespace std;
 
-
 void main(int argc,char *argv[])
 {
 	  setlocale(LC_ALL,"Russian");
@@ -46,7 +45,6 @@ void press(char *input, char *output)
 		  cout <<"входной файл не может быть открыт";
 	  if(!out)
 		  cout <<"выходной файл не может быть открыт";
-
 	  do
 	  {
 		  ch=in.get();
