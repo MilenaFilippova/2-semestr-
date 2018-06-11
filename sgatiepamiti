@@ -22,7 +22,7 @@ void main(int argc,char *argv[])
 	  }
 	  if(toupper(*argv[3])=='C')
 	  {
-		  press(argv[1],argv[2]);		//функция сжимания
+		  press(argv[1],argv[2]);		
 		  cout<<"Сжатый файл готов "<<endl;
 	  }		
 	  else
