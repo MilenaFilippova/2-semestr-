@@ -27,10 +27,10 @@ void main(int argc,char *argv[])
 		  cout<<"Сжатый файл готов "<<endl;
 	  }		
 	  else
-    {
+    	  {
 		  unpress(argv[1],argv[2]);
 		  cout<<"Размер востановлен "<<endl;
-    }
+    	  }
 	  system("pause");
 	  exit(1);
 }
