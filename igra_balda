@@ -19,7 +19,6 @@ int main()
 {
 	setlocale(LC_ALL,"Russian");
 	char namefile[]="D:\\ИГУ\\Программирование\\практика\\2 семестр\\balda\\in.txt" ;
-	char namefile1[]="D:\\ИГУ\\Программирование\\практика\\2 семестр\\balda\\output.txt" ;
 	int row=0,col=0; //кол-во строк,столбцов
 	char **A;
 	char **B;
