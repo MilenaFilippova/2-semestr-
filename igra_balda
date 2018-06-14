@@ -41,7 +41,7 @@ int main()
 	print_array(B,row+2,col+2);					//выводим массив B на экран
 	cepochka(B,row+2,col+2,slovo,N);			//считаем единицы в цепочке
 	deletemass(A,row);	//чистит память
-  deletemass(B,col);	//чистит память
+  	deletemass(B,col);	//чистит память
   
 	system("pause");
 	return 0;
@@ -138,11 +138,11 @@ int cepochka(char **&B,int row,int col,char *&slovo,int sizeslovo)
 int Zveno(char **&B,int i,int j,char *&slovo, int bukva) //считает буквы, которые совпали с буквами на доске и с введенными пользователем
 {
     if(B[i][j]==toupper(slovo[bukva]))
-	{
-		return 1+Zveno(B,i-1,j,slovo,bukva+1)+Zveno(B,i+1,j,slovo,bukva+1)+Zveno(B,i,j-1,slovo,bukva+1)+Zveno(B,i,j+1,slovo,bukva+1);	//рекурсия
-	}
-	else
-        return 0;
+    {
+	return 1+Zveno(B,i-1,j,slovo,bukva+1)+Zveno(B,i+1,j,slovo,bukva+1)+Zveno(B,i,j-1,slovo,bukva+1)+Zveno(B,i,j+1,slovo,bukva+1);	//рекурсия
+    }
+    else
+      return 0;
 }
 
 void deletemass(char**&Arr,int sizemass)	//чистит память
