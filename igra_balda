@@ -1,0 +1,155 @@
+#include <iostream>
+#include <stdlib.h>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+
+void memoryloc (char **&Arr,int row,int col);	//выделение памяти
+void read_array_from_file(char *namefile,char  **&A,int &row,int &col); //читаем данные из файла
+void print_array(char **&A, int row,int col);//выводит массив на экран
+void zapolnenie_array(char **&Arr,int row,int col);  //заполнение массива B нулями 
+void copy_array(char **&A,int rowa,int cola,char **&B,int rowb,int colb,int drow,int dcol );  //копирование массива А в массив В с забором
+int cepochka(char **&B,int row,int col,char *&slovo,int sizeslovo);	//
+int Zveno(char **&B,int i,int j,char *&slovo, int bukva);//считает единицы
+void deletemass(char**&Arr,int sizemass);	//чистит память
+
+
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	char namefile[]="D:\\ИГУ\\Программирование\\практика\\2 семестр\\balda\\in.txt" ;
+	char namefile1[]="D:\\ИГУ\\Программирование\\практика\\2 семестр\\balda\\output.txt" ;
+	int row=0,col=0; //кол-во строк,столбцов
+	char **A;
+	char **B;
+	int N;
+
+	cout<<"Введите количество букв в слове, которое хотите найти (без учета символа конца строки)"<<endl;
+	cin>>N;
+	char *slovo=new char[N+1];
+	cout<<endl<<"Введите слово ,которое хотите найти"<<endl;
+	cout<<endl;
+	cin>>slovo;
+
+	read_array_from_file(namefile,A,row,col);	//читаем данные из файла
+	print_array(A,row,col);						//выводим массив А на экран 
+	cout<<endl;
+	memoryloc(B,row+2,col+2);					//выделяем память под массив B
+	zapolnenie_array(B,row+2,col+2);			//заполнение массива B нулями    
+	copy_array(A,row,col,B,row+2,col+2,1,1);	//копируем массив А в В
+	print_array(B,row+2,col+2);					//выводим массив B на экран
+	cepochka(B,row+2,col+2,slovo,N);			//считаем единицы в цепочке
+	deletemass(A,row);	//чистит память
+  deletemass(B,col);	//чистит память
+  
+	system("pause");
+	return 0;
+    
+}
+
+
+void memoryloc (char **&Arr,int row,int col) //выделяет место
+{
+	Arr = new char*[row];
+	for(int i=0;i<row;i++)
+		Arr[i] = new char[col];
+}
+
+void read_array_from_file(char *namefile,char **&A,int &row,int &col)	//читает из файла
+{
+	ifstream in(namefile);
+	in>>row;
+	in>>col;
+	memoryloc(A,row,col);	//выделяем память под массив A ,в котором будем изночальная сетка букв
+	for(int i=0;i<row;++i)
+ 	{
+		for (int j=0;j<col;j++)
+		{
+			in>>A[i][j];
+		}
+	}
+	in.close();
+}
+
+void print_array(char **&A, int row,int col)		//выводит на экран массив 
+{
+	for (int i=0;i<row;i++)
+	{
+		for(int j=0;j<col;j++)
+		{
+			cout<<A[i][j]<<'\t';
+		}
+		cout<<endl;
+	}
+}
+
+void zapolnenie_array(char **&Arr,int row,int col) //заполнение массива B нулями для забора
+{
+	for (int i=0;i<row;i++)
+	{
+		for(int j=0;j<col;j++)
+		{
+			Arr[i][j]='0';
+		}
+	}
+}
+
+
+
+void copy_array(char **&A,int rowa,int cola,char **&B,int rowb,int colb,int drow,int dcol ) //заносит массив А в массив В
+{
+	for (int row=0;row<rowa;row++)
+	{
+		for(int col=0;col<cola;col++)
+		{
+			if(drow+row<rowb && dcol+col<colb &&  drow+row>=0 && dcol+col>=0)
+			{
+			    B[drow+row][dcol+col]=A[row][col];
+			}
+		}
+	}
+}
+
+
+
+int cepochka(char **&B,int row,int col,char *&slovo,int sizeslovo)	
+{
+	int len=0;
+	for (int i=1;i<row;i++)
+	{
+		for (int j=1;j<col;j++)
+		{
+			len=Zveno(B,i,j,slovo,0);
+			if(sizeslovo==len)
+				break;
+		}
+		if(sizeslovo==len)
+				break;
+	}    
+	if(sizeslovo==len)
+	  cout <<"Да,такое слово есть"<<endl;
+	else
+	  cout <<"Такого слова нет"<<endl;
+
+  return 0;
+}
+
+int Zveno(char **&B,int i,int j,char *&slovo, int bukva) //считает буквы, которые совпали с буквами на доске и с введенными пользователем
+{
+    if(B[i][j]==toupper(slovo[bukva]))
+	{
+		return 1+Zveno(B,i-1,j,slovo,bukva+1)+Zveno(B,i+1,j,slovo,bukva+1)+Zveno(B,i,j-1,slovo,bukva+1)+Zveno(B,i,j+1,slovo,bukva+1);	//рекурсия
+	}
+	else
+        return 0;
+}
+
+void deletemass(char**&Arr,int sizemass)	//чистит память
+{
+	for (int count = 0; count < sizemass; count++)
+	{
+         delete [] Arr[count];
+	}
+	delete [] Arr;
+}
