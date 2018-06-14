@@ -1,0 +1,36 @@
+//8 ферзей
+#include <iostream>
+#include <fstream>
+#include <locale.h>
+#include <string.h>
+#include "function.h"
+
+using namespace std;
+
+
+int main(void)
+{    
+	setlocale(LC_ALL, "Russian");   
+	int queenX[8], queenY[8];    
+	if (!readQueens("D:\\ИГУ\\Программирование\\практика\\2 семестр\\schaxmaty\\input",  queenX, queenY))
+	{       
+			cout<<"Не удалось прочитать координаты"<<endl;       
+			return -1;
+	}
+	ofstream out("D:\\ИГУ\\Программирование\\практика\\2 семестр\\schaxmaty\\out.txt");
+	if (!out.is_open())
+	{
+		 cout<<"Не удалось создать выходной файл"<<endl;
+		 return -2;
+	}
+	for (int i=0; i<8; i++)
+	{
+		for (int j=i+1; j<8; j++)
+		{
+			if (isThreaten(queenX[i], queenY[i], queenX[j], queenY[j]))			// Угрожают ли ферзи друг другу
+				writePair(out, queenX[i], queenY[i], queenX[j], queenY[j]);		// Вывод пары ферзей в выходной файл
+		}
+	}
+	system("pause");
+	return 0;
+}
